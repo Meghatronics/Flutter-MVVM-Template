@@ -1,4 +1,4 @@
-export '../../utilities/constants.dart/local_storage_keys.dart';
+export '../../utilities/constants/local_store_keys.dart';
 
 abstract class LocalStorageService {
   Future saveBool(String key, bool value);

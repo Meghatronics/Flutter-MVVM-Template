@@ -1,16 +1,14 @@
-import '../../../core/data/api_repository.dart';
-import '../../../core/view_model/data_response.dart';
+import '../../../common/data/app_repository.dart';
 import '../../../services/restful_api_service/api_request.dart';
-import '../../shared/widgets/app_phone_number_field.dart';
 import '../domain/models/login_dto.dart';
 import '../domain/models/signup_dto.dart';
 import '../domain/models/successful_login_model.dart';
 import '../domain/models/user_model.dart';
 import '../domain/repository_contracts/authentication_repository.dart';
 
-class AuthenticationRepoImpl extends ApiRepository
+class AuthenticationRepoImpl extends AppRepository
     implements AuthenticationRepository {
-  AuthenticationRepoImpl(super.apiService);
+  AuthenticationRepoImpl();
 
   @override
   Future<DataResponse<SuccessfulLoginModel>> login({

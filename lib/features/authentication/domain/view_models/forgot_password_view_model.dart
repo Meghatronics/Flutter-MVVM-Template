@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/view_model/app_view_model.dart';
-import '../../../../core/views/app_toast.dart';
-import '../../../../router/app_navigator.dart';
-import '../../../shared/geo_data_manager.dart';
-import '../../../shared/widgets/app_phone_number_field.dart';
-import '../../../shared/widgets/app_success_bottomsheet.dart';
+import '../../../../common/presentation/presentation.dart';
 import '../../ui/views/forgot_password_otp_view.dart';
 import '../../ui/views/forgot_password_set_new_view.dart';
 import '../models/login_dto.dart';
@@ -46,7 +41,9 @@ class ForgotPasswordViewModel extends AppViewModel {
       );
 
   String get credString =>
-      (_loginMethod.isEmail ? _credential.email : _credential.fullPhoneNumber) ??
+      (_loginMethod.isEmail
+          ? _credential.email
+          : _credential.fullPhoneNumber) ??
       '';
 
   void init(LoginDto? cred) {

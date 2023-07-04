@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/view_model/app_view_model.dart';
 import '../../../../core/views/app_toast.dart';
 import '../../../../router/app_navigator.dart';
-import '../../../../utilities/constants.dart/local_storage_keys.dart';
+import '../../../../utilities/constants/local_store_keys.dart';
 import '../../../sender/add_beneficiary/domain/models/new_beneficiary_model.dart';
 import '../../../shared/geo_data_manager.dart';
 import '../../../shared/session_manager.dart';

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../common/presentation/presentation.dart';
 import '../widgets/countdown_timer_display_widget.dart';
-import '../../../../utilities/theming/app_colors.dart';
-import '../../../../utilities/theming/app_styles.dart';
 
-import '../../../../core/views/app_view_builder.dart';
-import '../../../shared/components/app_button_widget.dart';
 import '../../domain/view_models/forgot_password_view_model.dart';
 import '../widgets/otp_text_field.dart';
 import '../widgets/white_title_bar.dart';

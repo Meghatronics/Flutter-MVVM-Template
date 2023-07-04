@@ -2,8 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../main/application.dart';
-import '../../../identity_verification/domain/models/id_verification_status_enum.dart';
-import '../../../sender/connect_bank/domain/models/connected_bank_model.dart';
+import '../../../../main/environment_config.dart';
 
 class UserModel {
   final String id;
@@ -16,9 +15,6 @@ class UserModel {
   final UserType type;
   final bool phoneVerified;
   final bool emailVerified;
-  final IdVerificationStatus idVerificationStatus;
-  final SenderInfo? senderInfo;
-  final BeneficiaryInfo? beneficiaryInfo;
 
   UserModel({
     required this.id,
@@ -31,15 +27,9 @@ class UserModel {
     required this.phoneVerified,
     required this.emailVerified,
     required this.type,
-    required this.idVerificationStatus,
-    required this.senderInfo,
-    required this.beneficiaryInfo,
   }) : _avatarUrl = avatarUrl;
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
-    final type = UserType.values.firstWhere(
-      (v) => v.serverCode == map['role'],
-    );
     return UserModel(
       id: map['id'].toString(),
       email: map['email'] ?? '',
@@ -50,27 +40,16 @@ class UserModel {
       avatarUrl: map['avatar'],
       phoneVerified: map['isPhoneVerified'] ?? false,
       emailVerified: map['isEmailVerified'] ?? false,
-      type: type,
-      idVerificationStatus: IdVerificationStatus.values.firstWhere(
-        (v) => v.serverCode == map['kyc_status'],
-        orElse: () => IdVerificationStatus.unverified,
+      type: UserType.values.firstWhere(
+        (v) => v.serverCode == map['role'],
       ),
-      senderInfo: type.isSender ? SenderInfo.fromMap(map['sender']) : null,
-      beneficiaryInfo: type.isBeneficiary
-          ? BeneficiaryInfo.fromMap(map['beneficiary'])
-          : null,
     );
   }
 
-  num get amountSpent =>
-      type.isSender ? senderInfo!.amountSpent : beneficiaryInfo!.amountSpent;
-  num get availableBalance => type.isSender
-      ? senderInfo!.availableBalance
-      : beneficiaryInfo!.availableBalance;
-
   String get fullName => '$firstName $lastName';
-  String? get avatarUrl =>
-      _avatarUrl != null ? 'http://${ThisApp.env.apiUrl}/$_avatarUrl' : null;
+  String? get avatarUrl => _avatarUrl != null
+      ? 'http://${EnvironmentConfig.apiUrl}/$_avatarUrl'
+      : null;
   ImageProvider? get avatarImage =>
       avatarUrl == null ? null : CachedNetworkImageProvider(avatarUrl!);
 

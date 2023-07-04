@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:logging/logging.dart';
 
-import '../../core/view_model/data_response.dart';
-import '../../core/view_model/failure.dart';
+import '../../common/data/app_repository.dart';
 import 'local_authentication_service.dart';
 
 class LocalAuthImplService extends LocalAuthenticationService {
@@ -48,9 +46,9 @@ class LocalAuthImplService extends LocalAuthenticationService {
       }
     } catch (e, t) {
       Logger(runtimeType.toString()).severe('Init $runtimeType failed', e, t);
-      debugPrint(
-        'init $runtimeType has failed with exception - ${e.toString()}',
-      );
+      throw (ServerException(
+        errorMessage: 'Could not initialise biometrics',
+      ));
     }
   }
 
@@ -77,11 +75,9 @@ class LocalAuthImplService extends LocalAuthenticationService {
     } catch (e, t) {
       Logger(runtimeType.toString())
           .severe('Authenticate with Biometric failed', e, t);
-      return DataResponse(
-        error: ServerFailure(
-          message: e.toString(),
-        ),
-      );
+      throw (ServerException(
+        errorMessage: 'Could not authenticate with biometrics',
+      ));
     }
   }
 }
