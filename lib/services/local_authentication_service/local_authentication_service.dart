@@ -1,0 +1,23 @@
+import 'dart:async';
+
+import '../../core/view_model/data_response.dart';
+
+abstract class LocalAuthenticationService {
+  bool get isAvailable;
+
+  LocalAuthMethod get availableAuthMethod;
+
+  Future<void> init();
+
+  Future<DataResponse<bool>> authenticate();
+}
+
+enum LocalAuthMethod {
+  faceId('Face Id'),
+  fingerprint('Fingerprint'),
+  pin('Fingerprint'),
+  unavailable('');
+
+  final String description;
+  const LocalAuthMethod(this.description);
+}
