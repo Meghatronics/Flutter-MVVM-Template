@@ -27,6 +27,7 @@ Configuration and environment information are provided to the rest of the app vi
     "APP_NAME": "Litrogen Dev", // Name of the app. This will affect the launcher name of both android and iOS builds.
     "PACKAGE_NAME": "com.mycompany.myapp", // Reverse id for the application
     "PACKAGE_NAME_SUFFIX": ".dev", // Use this to create different flavors of the build. Leave empty for production.
+    // FOR REST NETWORK SERVICE
     "API_URL": "example-server-1029.io", // Server url. Do not include the http method 
     "API_VERSION": "v1" // Server url version. Provide any unencoded path for the API_URL. E.g "api", "api/v1" 
 }
