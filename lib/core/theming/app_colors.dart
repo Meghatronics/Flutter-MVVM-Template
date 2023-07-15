@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class AppColors extends ThemeExtension<AppColors> {
   final Color primaryColor;
   final Color secondaryColor;
-  final Color alternateColor;
+  final Color tertiaryColor;
   final Color backgroundColor;
+  final Color overlayBackground;
   final Color textStrong;
   final Color textMedium;
   final Color textMute;
@@ -29,8 +30,9 @@ class AppColors extends ThemeExtension<AppColors> {
   const AppColors({
     required this.primaryColor,
     required this.secondaryColor,
-    required this.alternateColor,
+    required this.tertiaryColor,
     required this.backgroundColor,
+    required this.overlayBackground,
     required this.textStrong,
     required this.textMedium,
     required this.textMute,
@@ -62,38 +64,40 @@ class AppColors extends ThemeExtension<AppColors> {
   }
 
   static const defaultColors = AppColors(
-    primaryColor: Color(0XFF00F9BE),
-    secondaryColor: Color(0XFF011936),
-    alternateColor: Color(0XFF009F6B),
-    backgroundColor: Color(0XFF03261D),
-    textStrong: Color(0XFFE4FEF8),
-    textMedium: Color(0XFFC5D0CF),
-    textMute: Color(0XFF9EA7A5),
-    grey1: Color(0XFFCDD4D2),
-    grey2: Color(0XFFABB7B4),
-    grey3: Color(0XFF81938E),
-    grey4: Color(0XFF576E68),
-    grey5: Color(0XFF2D4A43),
-    attitudeErrorLight: Color(0XFFFDDEDE),
-    attitudeErrorMain: Color(0XFFF75859),
-    attitudeErrorDark: Color(0XFF7C2C2D),
-    attitudeSuccessLight: Color(0XFFCCECE4),
-    attitudeSuccessMain: Color(0XFF009F7A),
-    attitudeSuccessDark: Color(0XFF00503D),
-    attitudeWarningLight: Color(0XFFFFEDDC),
-    attitudeWarningMain: Color(0XFFFFA552),
-    attitudeWarningDark: Color(0XFF805229),
-    attitudeInfoLight: Color(0XFFD6EBFF),
-    attitudeInfoMain: Color(0XFF339DFF),
-    attitudeInfoDark: Color(0XFF113455),
+    primaryColor: Color(0xFF00F9BE),
+    secondaryColor: Color(0xFF011936),
+    tertiaryColor: Color(0xFF009F6B),
+    backgroundColor: Color(0xFF03261D),
+    overlayBackground: Color(0xFF03441D),
+    textStrong: Color(0xFFE4FEF8),
+    textMedium: Color(0xFFC5D0CF),
+    textMute: Color(0xFF9EA7A5),
+    grey1: Color(0xFFCDD4D2),
+    grey2: Color(0xFFABB7B4),
+    grey3: Color(0xFF81938E),
+    grey4: Color(0xFF576E68),
+    grey5: Color(0xFF2D4A43),
+    attitudeErrorLight: Color(0xFFFDDEDE),
+    attitudeErrorMain: Color(0xFFF75859),
+    attitudeErrorDark: Color(0xFF7C2C2D),
+    attitudeSuccessLight: Color(0xFFCCECE4),
+    attitudeSuccessMain: Color(0xFF009F7A),
+    attitudeSuccessDark: Color(0xFF00503D),
+    attitudeWarningLight: Color(0xFFFFEDDC),
+    attitudeWarningMain: Color(0xFFFFA552),
+    attitudeWarningDark: Color(0xFF805229),
+    attitudeInfoLight: Color(0xFFD6EBFF),
+    attitudeInfoMain: Color(0xFF339DFF),
+    attitudeInfoDark: Color(0xFF113455),
   );
 
   @override
-  ThemeExtension<AppColors> copyWith({
+  AppColors copyWith({
     Color? primaryColor,
-    Color? secondaryMainBlue,
-    Color? secondaryMainGreen,
-    Color? backgroundDark,
+    Color? secondaryColor,
+    Color? tertiaryColor,
+    Color? backgroundColor,
+    Color? overlayBackground,
     Color? textStrong,
     Color? textMedium,
     Color? textMute,
@@ -117,10 +121,10 @@ class AppColors extends ThemeExtension<AppColors> {
   }) {
     return AppColors(
       primaryColor: primaryColor ?? this.primaryColor,
-      secondaryColor: secondaryMainBlue ?? this.secondaryColor,
-      alternateColor:
-          secondaryMainGreen ?? this.alternateColor,
-      backgroundColor: backgroundDark ?? this.backgroundColor,
+      secondaryColor: secondaryColor ?? this.secondaryColor,
+      tertiaryColor: tertiaryColor ?? this.tertiaryColor,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      overlayBackground: overlayBackground ?? this.overlayBackground,
       textStrong: textStrong ?? this.textStrong,
       textMedium: textMedium ?? this.textMedium,
       textMute: textMute ?? this.textMute,
@@ -145,8 +149,7 @@ class AppColors extends ThemeExtension<AppColors> {
   }
 
   @override
-  ThemeExtension<AppColors> lerp(
-      covariant ThemeExtension<AppColors>? other, double t) {
+  AppColors lerp(covariant AppColors? other, double t) {
     return other ?? this;
   }
 }

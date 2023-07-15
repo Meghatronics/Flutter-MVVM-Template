@@ -4,18 +4,23 @@ import 'package:logging/logging.dart';
 import 'app_navigator_stack.dart';
 import 'app_routes.dart';
 
+export 'app_navigator_stack.dart';
 export 'app_routes.dart';
 
 class AppNavigator {
-  const AppNavigator(this.currentContext);
+  AppNavigator.of(BuildContext context) : _navigator = Navigator.of(context);
+
+  AppNavigator.ofKey(GlobalKey<NavigatorState> key)
+      : _navigator = key.currentState!;
 
   static final mainKey = GlobalKey<NavigatorState>();
-  static AppNavigator main = AppNavigator(mainKey.currentState!.context);
+  static AppNavigator main = AppNavigator.ofKey(mainKey);
 
-  final BuildContext currentContext;
-  NavigatorState get _navigator => Navigator.of(currentContext);
+  final NavigatorState _navigator;
 
-  bool get canPop => mainKey.currentState!.canPop();
+  BuildContext get currentContext => _navigator.context;
+
+  bool get canPop => _navigator.canPop();
 
   Future<T?> push<T>(Widget view, {String? routeName}) {
     return _navigator.push<T>(

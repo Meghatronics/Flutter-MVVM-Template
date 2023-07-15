@@ -54,7 +54,7 @@ abstract class AppViewModel extends ChangeNotifier {
   @protected
   void handleErrorAndSetVmState(Failure failure, [String? heading]) {
     if (hasListeners) {
-      //TODO(MajorE): Show error toast
+      // TODO(MajorE): Show error toast
     }
     if (failure is NetworkFailure) {
       setState(VmState.noConnection);

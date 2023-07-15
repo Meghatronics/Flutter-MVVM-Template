@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import '../core/navigation/app_navigator.dart';
-import '../core/navigation/app_navigator_stack.dart';
-import '../core/theming/app_theme_manager.dart';
+import '../common/presentation/presentation.dart';
+import '../core/service_locator/service_locator.dart';
 import '../l10n/generated/messages.dart';
 import '../services/app_lifecycle_service/app_lifecycle_service.dart';
 import 'environment_config.dart';
@@ -16,9 +15,29 @@ class ThisApplication extends StatefulWidget {
 }
 
 class _ThisApplicationState extends State<ThisApplication> {
+  late final AppThemeManager _themeManager;
+
   @override
   void initState() {
     AppLifecycleService.instance.initialise();
+    _themeManager = AppThemeManager(
+      lightTheme: AppTheme(
+        colors: AppColors.defaultColors,
+        headingFontFamily: AppStyles.defaultHeadingFont,
+        bodyFontFamily: AppStyles.defaultBodyFont,
+      ),
+      darkTheme: AppTheme(
+        colors: AppColors.defaultColors.copyWith(
+          backgroundColor: Colors.orange,
+          primaryColor: Colors.orange,
+        ),
+        headingFontFamily: AppStyles.defaultHeadingFont,
+        bodyFontFamily: AppStyles.defaultBodyFont,
+      ),
+      localStore: ServiceLocator.get(),
+      appThemeMode: AppThemeMode.previousMode,
+    );
+    _themeManager.initialise();
     super.initState();
   }
 
@@ -30,9 +49,13 @@ class _ThisApplicationState extends State<ThisApplication> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<AppTheme>(
-      valueListenable: AppThemeManager(),
-      builder: (ctx, currentTheme, _) => MaterialApp(
+    return AppViewBuilder<AppThemeManager>(
+      model: _themeManager,
+      initState: (vm) => vm.initialise(),
+      builder: (themeManager, _) => MaterialApp(
+        theme: themeManager.lightTheme,
+        darkTheme: themeManager.darkTheme,
+        themeMode: themeManager.themeMode,
         debugShowCheckedModeBanner: !EnvironmentConfig.isProd,
         title: EnvironmentConfig.appName,
         localizationsDelegates: const [
@@ -45,12 +68,11 @@ class _ThisApplicationState extends State<ThisApplication> {
           Locale('en'),
           Locale('es'),
         ],
-        initialRoute: '',
+        initialRoute: '/',
         navigatorKey: AppNavigator.mainKey,
         routes: AppRoutes.routes,
         onGenerateRoute: AppRoutes.generateRoutes,
         navigatorObservers: [AppNavigatorObserver.instance],
-        theme: currentTheme.themeData,
       ),
     );
   }

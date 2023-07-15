@@ -20,11 +20,42 @@ class AppTheme {
         );
 
   ThemeData get themeData => ThemeData(
-        // TODO set everything
         scaffoldBackgroundColor: colors.backgroundColor,
         primaryColor: colors.primaryColor,
         appBarTheme: AppBarTheme(backgroundColor: colors.primaryColor),
-        splashColor: colors.attitudeErrorMain,
+        splashColor: colors.tertiaryColor,
         extensions: [colors, styles],
+        textTheme: TextTheme(
+          bodySmall: styles.body14Regular,
+          titleSmall: styles.body14Medium,
+        ),
+        canvasColor: colors.backgroundColor,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: colors.attitudeErrorMain,
+          selectionColor: colors.grey3,
+          selectionHandleColor: colors.secondaryColor,
+        ),
+        colorScheme: ColorScheme(
+          primary: colors.primaryColor,
+          onPrimary: colors.backgroundColor,
+          secondary: colors.secondaryColor,
+          onSecondary: colors.backgroundColor,
+          background: colors.backgroundColor,
+          onBackground: colors.backgroundColor,
+          surface: colors.backgroundColor,
+          onSurface: colors.textStrong,
+          error: colors.attitudeErrorDark,
+          onError: colors.attitudeErrorDark,
+          brightness: Brightness.dark,
+        ),
+        dialogBackgroundColor: colors.backgroundColor,
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: colors.backgroundColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(32),
+            ),
+          ),
+        ),
       );
 }

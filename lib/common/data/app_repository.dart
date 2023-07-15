@@ -30,15 +30,6 @@ abstract class AppRepository {
     }
   }
 
-  /// Returns a [DataResponse] with a corresponding [Failure] based on the exception [e].
-  @protected
-  DataResponse<T> returnResponseWithFailure<T>(e) {
-    final correspondingFailureOfException = convertException(e);
-    return DataResponse<T>(
-      error: correspondingFailureOfException,
-    );
-  }
-
   @protected
   Future<DataResponse<T>> runDataWithGuard<T>(
       FutureOr<DataResponse<T>> Function() closure) async {

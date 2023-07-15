@@ -8,8 +8,8 @@ import '../../main/environment_config.dart';
 import '../../services/error_logging_service/error_logging_service.dart';
 import '../../services/local_storage_service/flutter_secure_local_storage_service.dart';
 import '../../services/local_storage_service/local_storage_service.dart';
-import '../../services/restful_api_service/dio_network_service.dart';
-import '../../services/restful_api_service/restful_api_service.dart';
+import '../../services/rest_network_service/dio_network_service.dart';
+import '../../services/rest_network_service/rest_network_service.dart';
 import '../../utilities/constants/constants.dart';
 import 'feature_dependencies.dart';
 
@@ -33,7 +33,7 @@ abstract class ServiceLocator {
     await registerDependencies();
   }
 
-  static resetInstance<T extends Object>() {
+  static void resetInstance<T extends Object>() {
     get.resetLazySingleton<T>();
   }
 }
@@ -54,7 +54,7 @@ class _ServiceDependencies extends ServiceLocator {
       ),
     );
 
-    locator.registerLazySingleton<RestfulApiService>(() => DioNetworkService(
+    locator.registerLazySingleton<RestNetworkService>(() => DioNetworkService(
           sessionManager: locator(),
           baseUrl: EnvironmentConfig.apiUrl,
           apiVersion: EnvironmentConfig.apiVersion,

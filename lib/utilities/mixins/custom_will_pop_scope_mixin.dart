@@ -5,7 +5,7 @@ mixin CustomWillPopScopeMixin {
   static const secondTapDurationSpace = Duration(seconds: 2);
   Future<bool> onSecondBackPop() async {
     if (!_secondBack) {
-      //TODO(Majore): Open Toast
+      // TODO(Majore): Open Toast
       // AppToast.info('Press back again to close ${EnvironmentConfig.appName}')
       //     .show();
       _secondBack = true;
@@ -17,7 +17,7 @@ mixin CustomWillPopScopeMixin {
   }
 
   Future<bool> delayAndPop() async {
-    //TODO(Majore): Open Toast
+    // TODO(Majore): Open Toast
     // AppToast.info('Closing ${EnvironmentConfig.appName}').show();
     return Future.delayed(secondTapDurationSpace, () => true);
   }

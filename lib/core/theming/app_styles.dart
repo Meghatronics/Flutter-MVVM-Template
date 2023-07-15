@@ -46,7 +46,7 @@ class AppStyles extends ThemeExtension<AppStyles> {
   final TextStyle button14Bold;
   final TextStyle button12Regular;
   final TextStyle button12Bold;
-  final TextStyle value16Regular;
+  final TextStyle value16Medium;
   final TextStyle label14Regular;
   final TextStyle hint12Medium;
 
@@ -243,7 +243,7 @@ class AppStyles extends ThemeExtension<AppStyles> {
           height: 14 / 10,
           color: colors.textStrong,
         ),
-        value16Regular = TextStyle(
+        value16Medium = TextStyle(
           fontFamily: bodyFontFamily,
           fontWeight: FontWeight.w400,
           fontSize: 16,

@@ -1,4 +1,4 @@
-package com.example.auth_demo
+package com.example.mvvm_temp
 
 import io.flutter.embedding.android.FlutterActivity
 

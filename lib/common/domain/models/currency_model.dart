@@ -1,3 +1,3 @@
 class CurrencyModel {
-  //TODO(MajorE): Implement CurrencyModel
+  // TODO(MajorE): Implement CurrencyModel
 }
