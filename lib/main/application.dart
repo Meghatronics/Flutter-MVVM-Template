@@ -35,7 +35,7 @@ class _ThisApplicationState extends State<ThisApplication> {
         bodyFontFamily: AppStyles.defaultBodyFont,
       ),
       localStore: ServiceLocator.get(),
-      appThemeMode: AppThemeMode.previousMode,
+      defaultMode: ThemeMode.system,
     );
     _themeManager.initialise();
     super.initState();

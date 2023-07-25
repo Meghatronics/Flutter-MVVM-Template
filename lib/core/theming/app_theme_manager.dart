@@ -7,20 +7,12 @@ export 'app_colors.dart';
 export 'app_styles.dart';
 export 'app_theme.dart';
 
-enum AppThemeMode {
-  light(ThemeMode.light),
-  dark(ThemeMode.dark),
-  system(ThemeMode.system),
-  previousMode(ThemeMode.system);
-
-  final ThemeMode mode;
-  const AppThemeMode(this.mode);
-}
-
 class AppThemeManager extends AppViewModel {
+  static bool forceDefault = false;
+
   final AppTheme _lightTheme;
   final AppTheme? _darkTheme;
-  final AppThemeMode _appThemeMode;
+  final ThemeMode _defaultMode;
   final LocalStorageService _localStore;
 
   ThemeMode? _themeMode;
@@ -29,31 +21,32 @@ class AppThemeManager extends AppViewModel {
     required AppTheme lightTheme,
     required AppTheme? darkTheme,
     required LocalStorageService localStore,
-    AppThemeMode appThemeMode = AppThemeMode.previousMode,
+    ThemeMode defaultMode = ThemeMode.system,
   })  : _lightTheme = lightTheme,
         _darkTheme = darkTheme,
         _localStore = localStore,
-        _appThemeMode = appThemeMode;
+        _defaultMode = defaultMode;
 
   ThemeData? get lightTheme => _lightTheme.themeData;
   ThemeData? get darkTheme => _darkTheme?.themeData;
 
-  ThemeMode get themeMode => _themeMode ?? ThemeMode.light;
+  ThemeMode get themeMode => _themeMode ?? _defaultMode;
 
   Future<void> initialise() async {
-    if (_appThemeMode == AppThemeMode.previousMode) {
+    if (forceDefault) {
+      _themeMode = _defaultMode;
+    } else {
       final mode = await _getLastTheme();
       _themeMode = mode;
-    } else {
-      _themeMode = _appThemeMode.mode;
     }
+    setState();
   }
 
   Future<ThemeMode> _getLastTheme() async {
     final name = await _localStore.fetchString(LocalStoreKeys.THEME_MODE);
     final mode = ThemeMode.values.firstWhere(
       (element) => element.name == name,
-      orElse: () => ThemeMode.light,
+      orElse: () => _defaultMode,
     );
     return mode;
   }
