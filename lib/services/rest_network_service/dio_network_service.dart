@@ -8,8 +8,8 @@ import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../common/data/app_exceptions.dart';
-import '../../common/domain/session_manager.dart';
+import '../../core/data/app_exceptions.dart';
+import '../../core/domain/session_manager.dart';
 import 'rest_network_service.dart';
 
 /// Implementation of [RestfulApiService] using the Dio library.

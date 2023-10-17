@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import '../common/presentation/presentation.dart';
+import '../core/presentation/presentation.dart';
 import '../core/service_locator/service_locator.dart';
 import '../l10n/generated/messages.dart';
 import '../services/app_lifecycle_service/app_lifecycle_service.dart';
@@ -26,14 +27,7 @@ class _ThisApplicationState extends State<ThisApplication> {
         headingFontFamily: AppStyles.defaultHeadingFont,
         bodyFontFamily: AppStyles.defaultBodyFont,
       ),
-      darkTheme: AppTheme(
-        colors: AppColors.defaultColors.copyWith(
-          backgroundColor: Colors.orange,
-          primaryColor: Colors.orange,
-        ),
-        headingFontFamily: AppStyles.defaultHeadingFont,
-        bodyFontFamily: AppStyles.defaultBodyFont,
-      ),
+      darkTheme: null,
       localStore: ServiceLocator.get(),
       defaultMode: ThemeMode.system,
     );
@@ -68,11 +62,24 @@ class _ThisApplicationState extends State<ThisApplication> {
           Locale('en'),
           Locale('es'),
         ],
-        initialRoute: '/',
-        navigatorKey: AppNavigator.mainKey,
+        initialRoute: AppRoutes.splashRoute,
         routes: AppRoutes.routes,
         onGenerateRoute: AppRoutes.generateRoutes,
+        navigatorKey: AppNavigator.mainKey,
         navigatorObservers: [AppNavigatorObserver.instance],
+        builder: (context, widget) {
+          if (kReleaseMode) {
+            const errT = Text('A rendering error occured');
+            ErrorWidget.builder = (errorDetails) {
+              if (widget is Scaffold || widget is Navigator) {
+                return const Scaffold(body: Center(child: errT));
+              } else {
+                return errT;
+              }
+            };
+          }
+          return widget ?? const Scaffold();
+        },
       ),
     );
   }
