@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../common/domain/session_manager.dart';
+import '../../core/domain/session_manager.dart';
 import '../../main/environment_config.dart';
 import '../../services/error_logging_service/error_logging_service.dart';
 import '../../services/local_storage_service/flutter_secure_local_storage_service.dart';

@@ -11,7 +11,7 @@
             "program": "lib/main/main.dart",
             "toolArgs": [
                 "--dart-define-from-file",
-                "lib/main/env_staging.json",
+                "lib/main/staging.env",
             ],
         },
         {
@@ -22,7 +22,7 @@
             "flutterMode": "debug",
             "toolArgs": [
                 "--dart-define-from-file",
-                "lib/main/env_prod.json",
+                "lib/main/prod.env",
             ],
         },
         {
@@ -33,7 +33,7 @@
             "flutterMode": "profile",
             "toolArgs": [
                 "--dart-define-from-file",
-                "lib/main/env_prod.json",
+                "lib/main/prod.env",
             ],
         },
         {
@@ -44,7 +44,7 @@
             "flutterMode": "release",
             "toolArgs": [
                 "--dart-define-from-file",
-                "lib/main/env_prod.json",
+                "lib/main/prod.env",
             ],
         },
     ]
