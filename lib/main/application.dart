@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../core/presentation/presentation.dart';
-import '../core/service_locator/service_locator.dart';
 import '../l10n/generated/messages.dart';
 import '../services/app_lifecycle_service/app_lifecycle_service.dart';
+import '../services/remote_config/remote_config_service.dart';
 import 'environment_config.dart';
 
 class ThisApplication extends StatefulWidget {
@@ -16,22 +16,10 @@ class ThisApplication extends StatefulWidget {
 }
 
 class _ThisApplicationState extends State<ThisApplication> {
-  late final AppThemeManager _themeManager;
-
   @override
   void initState() {
     AppLifecycleService.instance.initialise();
-    _themeManager = AppThemeManager(
-      lightTheme: AppTheme(
-        colors: AppColors.defaultColors,
-        headingFontFamily: AppStyles.defaultHeadingFont,
-        bodyFontFamily: AppStyles.defaultBodyFont,
-      ),
-      darkTheme: null,
-      localStore: ServiceLocator.get(),
-      defaultMode: ThemeMode.system,
-    );
-    _themeManager.initialise();
+    RemoteConfigService.instance.initialise();
     super.initState();
   }
 
@@ -44,8 +32,14 @@ class _ThisApplicationState extends State<ThisApplication> {
   @override
   Widget build(BuildContext context) {
     return AppViewBuilder<AppThemeManager>(
-      model: _themeManager,
-      initState: (vm) => vm.initialise(),
+      model: AppThemeManager(
+        lightTheme: AppTheme(
+          colors: AppColors.defaultColors,
+          headingFontFamily: AppStyles.defaultHeadingFont,
+          bodyFontFamily: AppStyles.defaultBodyFont,
+        ),
+        darkTheme: null,
+      ),
       builder: (themeManager, _) => MaterialApp(
         theme: themeManager.lightTheme,
         darkTheme: themeManager.darkTheme,

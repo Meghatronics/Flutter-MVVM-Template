@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:native_updater/native_updater.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -17,10 +18,10 @@ abstract class BuildInfoService {
   void promptUserToUpdate(BuildContext context);
 }
 
-class DeviceAndAppInfoServiceImpl implements BuildInfoService {
+class BuildInfoServiceImpl implements BuildInfoService {
   final DeviceInfoPlugin deviceInfoPlugin;
 
-  DeviceAndAppInfoServiceImpl({
+  BuildInfoServiceImpl({
     required this.deviceInfoPlugin,
   });
 
@@ -36,25 +37,36 @@ class DeviceAndAppInfoServiceImpl implements BuildInfoService {
 
   @override
   void promptUserToUpdate(BuildContext context) {
-    NativeUpdater.displayUpdateAlert(
-      context,
-      forceUpdate:
-          RemoteConfigService.instance.getBool(RemoteKeys.FORCE_APP_UDATE),
-    );
+    try {
+      NativeUpdater.displayUpdateAlert(
+        context,
+        forceUpdate:
+            RemoteConfigService.instance.getBool(RemoteKeys.FORCE_APP_UDATE),
+      );
+    } catch (e, t) {
+      Logger(runtimeType.toString())
+          .severe('Prompt for update ran into error', e, t);
+    }
   }
 
   Future<DeviceInfoModel> _fetchDeviceInfo() async {
-    DeviceInfoModel deviceInfo;
-    if (Platform.isIOS) {
-      deviceInfo = await _fetchIosInfo();
-    } else if (Platform.isAndroid) {
-      deviceInfo = await _fetchAndroidInfo();
-    } else {
-      deviceInfo = DeviceInfoModel(
-          deviceBrand: Platform.operatingSystem,
-          deviceModel: Platform.operatingSystemVersion);
+    try {
+      DeviceInfoModel deviceInfo;
+      if (Platform.isIOS) {
+        deviceInfo = await _fetchIosInfo();
+      } else if (Platform.isAndroid) {
+        deviceInfo = await _fetchAndroidInfo();
+      } else {
+        deviceInfo = DeviceInfoModel(
+            deviceBrand: Platform.operatingSystem,
+            deviceModel: Platform.operatingSystemVersion);
+      }
+      return deviceInfo;
+    } catch (e, t) {
+      Logger(runtimeType.toString())
+          .severe('Device info fetch ran into error', e, t);
+      rethrow;
     }
-    return deviceInfo;
   }
 
   Future<DeviceInfoModel> _fetchIosInfo() async {
@@ -85,12 +97,18 @@ class DeviceAndAppInfoServiceImpl implements BuildInfoService {
   }
 
   Future<AppInfoModel> _fetchAppInfo() async {
-    final info = await PackageInfo.fromPlatform();
+    try {
+      final info = await PackageInfo.fromPlatform();
 
-    return AppInfoModel(
-      packageName: info.packageName,
-      buildNumber: info.buildNumber,
-      versionNumber: info.version,
-    );
+      return AppInfoModel(
+        packageName: info.packageName,
+        buildNumber: info.buildNumber,
+        versionNumber: info.version,
+      );
+    } catch (e, t) {
+      Logger(runtimeType.toString())
+          .severe('App info fetch ran into error', e, t);
+      rethrow;
+    }
   }
 }
