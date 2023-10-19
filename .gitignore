@@ -46,3 +46,4 @@ app.*.map.json
 # Env Variables
 lib/main/*.json
 .fvm/
+lib/main/*.env

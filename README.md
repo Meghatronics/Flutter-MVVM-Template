@@ -10,7 +10,7 @@
 # Road Map
 | Title                         | Description                                                      | Status  | Done |
 |-------------------------------|------------------------------------------------------------------|---------|------|
-| Dynamic Theming               | API to change theme mode, theme, remember previous theme setting | PENDING |      |
+| Dynamic Theming               | API to change theme mode, theme, remember previous theme setting | TESTING |      |
 | Environment Native connection | Connect bundle id, app name, etc to the native declaration       | PENDING |      |
 | Feature Sample                | Write a sample feature using the setup to demonstrate its use    | PENDING |      |
 | Dashboard Feature             | Add a dashboard feature                                          | PENDING |      |

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../common/domain/app_responses.dart';
+import '../../core/domain/app_responses.dart';
 
 abstract class LocalAuthenticationService {
   bool get isAvailable;

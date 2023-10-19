@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "287754819182",
+    "project_id": "majore-template",
+    "storage_bucket": "majore-template.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287754819182:android:0361047b110873b971787f",
+        "android_client_info": {
+          "package_name": "com.majore.template"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMmHQPdedB3UL9hXqxQiku6E427oe9oQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

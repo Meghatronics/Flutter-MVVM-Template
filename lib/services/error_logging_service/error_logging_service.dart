@@ -4,13 +4,13 @@ import 'dart:isolate';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../../common/domain/models/user_model.dart';
+import '../../features/shared/models/user_model.dart';
 
 class ErrorLogService {
   //? Supply the implementation to use for this service in the app here
-  static final ErrorLogService instance = ErrorLogService._();
+  static final ErrorLogService instance = ErrorLogService();
 
-  ErrorLogService._();
+  ErrorLogService();
 
   late bool _isLogging;
 
@@ -24,10 +24,11 @@ class ErrorLogService {
     // Connect framework errors
     FlutterError.onError = recordFlutterError;
 
-    // Connect errors on main isolate
-    Isolate.current.addErrorListener(RawReceivePort(
-      (List<dynamic> pair) async => recordError(pair.first, pair.last),
-    ).sendPort);
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework
+    PlatformDispatcher.instance.onError = (error, stack) {
+      recordError(error, stack, fatal: true);
+      return true;
+    };
 
     // Connect severe log events
     Logger.root.onRecord.listen(
@@ -43,6 +44,13 @@ class ErrorLogService {
         }
       },
     );
+
+    // Connect errors on main isolate
+    if (!kIsWeb) {
+      Isolate.current.addErrorListener(RawReceivePort(
+        (List<dynamic> pair) async => recordError(pair.first, pair.last),
+      ).sendPort);
+    }
   }
 
   FutureOr<void> connectUser(UserModel user) async {}

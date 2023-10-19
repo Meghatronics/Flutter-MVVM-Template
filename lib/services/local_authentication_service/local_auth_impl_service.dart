@@ -1,7 +1,7 @@
 import 'package:local_auth/local_auth.dart';
 import 'package:logging/logging.dart';
 
-import '../../common/data/app_repository.dart';
+import '../../core/data/app_repository.dart';
 import 'local_authentication_service.dart';
 
 class LocalAuthImplService extends LocalAuthenticationService {
